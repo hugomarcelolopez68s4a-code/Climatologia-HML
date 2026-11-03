@@ -1,4 +1,3 @@
-
 name: Compilar APK
 
 on:
@@ -36,3 +35,12 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
+          name: DensidadAire-apk
+          path: ${{ env.BUILD_DIR }}/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Densidad del aire build ${{ github.run_number }}
+          files: ${{ env.BUILD_DIR }}/app/build/outputs/apk/debug/app-debug.apk
